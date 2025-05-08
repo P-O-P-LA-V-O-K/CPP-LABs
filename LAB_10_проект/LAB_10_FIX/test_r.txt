@@ -1,3 +1,0 @@
-Audience 1
-Laboratory 3
-Admin_Panel 5

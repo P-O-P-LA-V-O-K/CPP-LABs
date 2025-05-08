@@ -385,10 +385,10 @@ int main()
         sys.addUser(std::make_shared<Student>("Steve", 2, 2, "T.23"));
         
         //name, ID, Уровень доступа, кафедра
-        sys.addUser(std::make_shared<Teacher>("Olga", 3, 3, "Т"));
+        sys.addUser(std::make_shared<Teacher>("Olga", 3, 3, "T"));
         
         //name, ID, Уровень доступа, Уровень админа
-        sys.addUser(std::make_shared<Administrator>("Password name", 4, 5, 1));
+        sys.addUser(std::make_shared<Administrator>("Admin", 4, 5, 1));
 
         //Добавление ресурсов
         //name, требуемый уровень
