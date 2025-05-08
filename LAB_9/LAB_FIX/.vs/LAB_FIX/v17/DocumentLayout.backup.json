@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ASUS\\Documents\\GitHub\\OOP-LAbs-FIX\\CPP-LABs\\LAB_9\\LAB_FIX\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{04A4AA7A-A370-41CA-93B9-FE626C74B690}|LAB_FIX.vcxproj|C:\\Users\\ASUS\\Documents\\GitHub\\OOP-LAbs-FIX\\CPP-LABs\\LAB_9\\LAB_FIX\\LAB_FIX.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04A4AA7A-A370-41CA-93B9-FE626C74B690}|LAB_FIX.vcxproj|solutionrelative:LAB_FIX.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LAB_FIX.cpp",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Documents\\GitHub\\OOP-LAbs-FIX\\CPP-LABs\\LAB_9\\LAB_FIX\\LAB_FIX.cpp",
+              "RelativeDocumentMoniker": "LAB_FIX.cpp",
+              "ToolTip": "C:\\Users\\ASUS\\Documents\\GitHub\\OOP-LAbs-FIX\\CPP-LABs\\LAB_9\\LAB_FIX\\LAB_FIX.cpp",
+              "RelativeToolTip": "LAB_FIX.cpp",
+              "ViewState": "AgIAAL4BAAAAAAAAAAAowNABAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-22T18:56:47.611Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
