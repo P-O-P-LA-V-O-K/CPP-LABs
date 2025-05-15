@@ -1,90 +1,65 @@
-﻿//LAB - 2
+﻿//LAB - 5
 
 #include <iostream>
-#include <string>
+#include <vector>
+#include <memory>
+#include <stdexcept>
 
-class Character {
+template<typename Type>
+class SimpleQueue {
 private:
-    std::string name;
-    int health;
-    int attack;
-    int defense;
+    std::vector<Type> data;
 
 public:
-    // Конструктор
-    Character(const std::string& n, int h, int a, int d)
-        : name(n), health(h), attack(a), defense(d) {
-        std::cout << "Character " << name << " created!\n";
+    void enqueue(const Type& value) {
+        data.push_back(value);
     }
 
-    // Деструктор
-    ~Character() {
-        std::cout << "Character " << name << " destroyed!\n";
+    Type dequeue() {
+        if (data.empty()) {
+            throw std::runtime_error("Attempted to dequeue from empty queue.");
+        }
+
+        Type result = data.front();
+        data.erase(data.begin());
+        return result;
     }
 
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", HP: " << health
-            << ", Attack: " << attack << ", Defense: " << defense << std::endl;
-    }
-};
-
-class Monster {
-private:
-    std::string name;
-    int health;
-    int attack;
-    int defense;
-
-public:
-    // Конструктор
-    Monster(const std::string& n, int h, int a, int d)
-        : name(n), health(h), attack(a), defense(d) {
-        std::cout << "Monster " << name << " created!\n";
+    bool empty() const {
+        return data.empty();
     }
 
-    // Деструктор
-    ~Monster() {
-        std::cout << "Monster " << name << " destroyed!\n";
-    }
-
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", HP: " << health
-            << ", Attack: " << attack << ", Defense: " << defense << std::endl;
-    }
-};
-
-class Weapon {
-private:
-    std::string name;
-    int damage;
-    int weight;
-
-public:
-    // Конструктор
-    Weapon(const std::string& n, int d, int w)
-        : name(n), damage(d), weight(w) {
-        std::cout << "Weapon " << name << " created!\n";
-    }
-
-    // Деструктор
-    ~Weapon() {
-        std::cout << "Weapon " << name << " destroyed!\n";
-    }
-
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", Damage: " << damage
-            << ", Weight: " << weight << std::endl;
+    void print() const {
+        std::cout << "Queue contents: ";
+        for (const auto& item : data) {
+            std::cout << item << " ";
+        }
+        std::cout << std::endl;
     }
 };
 
 int main() {
-    Weapon sword("Sword", 50, 5);
-    Weapon bow("Bow", 30, 3);
-    Weapon axe("Axe", 60, 8);
+    SimpleQueue<std::string> fruits;
+    fruits.enqueue("Apple");
+    fruits.enqueue("Banana");
+    fruits.enqueue("Cherry");
 
-    sword.displayInfo();
-    bow.displayInfo();
-    axe.displayInfo();
+    std::cout << "Fruits Queue:" << std::endl;
+    fruits.print();
+
+    std::cout << "Removed: " << fruits.dequeue() << std::endl;
+    fruits.print();
+
+    SimpleQueue<int> numbers;
+    numbers.enqueue(100);
+    numbers.enqueue(200);
+    numbers.enqueue(300);
+
+    std::cout << "\nNumbers Queue:" << std::endl;
+    numbers.print();
+
+    std::cout << "Removed: " << numbers.dequeue() << std::endl;
+    numbers.print();
 
     return 0;
 }

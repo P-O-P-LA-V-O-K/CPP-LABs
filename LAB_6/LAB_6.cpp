@@ -1,90 +1,89 @@
-﻿//LAB - 2
+﻿//LAB - 6
 
 #include <iostream>
-#include <string>
+#include <vector>
+#include <stdexcept>
 
-class Character {
+template<typename T>
+class MyQueue {
 private:
-    std::string name;
-    int health;
-    int attack;
-    int defense;
+    std::vector<T> storage;
 
 public:
-    // Конструктор
-    Character(const std::string& n, int h, int a, int d)
-        : name(n), health(h), attack(a), defense(d) {
-        std::cout << "Character " << name << " created!\n";
+    void enqueue(const T& value) {
+        storage.emplace_back(value);
     }
 
-    // Деструктор
-    ~Character() {
-        std::cout << "Character " << name << " destroyed!\n";
+    T dequeue() {
+        if (storage.empty()) {
+            throw std::out_of_range("Can't dequeue from an empty queue.");
+        }
+        T frontItem = storage.front();
+        storage.erase(storage.begin());
+        return frontItem;
     }
 
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", HP: " << health
-            << ", Attack: " << attack << ", Defense: " << defense << std::endl;
+    bool is_empty() const {
+        return storage.empty();
+    }
+
+    void show() const {
+        if (is_empty()) {
+            std::cout << "[Queue is empty]\n";
+            return;
+        }
+
+        std::cout << "[Queue] ";
+        for (const auto& item : storage) {
+            std::cout << item << " ";
+        }
+        std::cout << "\n";
     }
 };
 
-class Monster {
-private:
-    std::string name;
-    int health;
-    int attack;
-    int defense;
+void testStringQueue() {
+    MyQueue<std::string> q;
 
-public:
-    // Конструктор
-    Monster(const std::string& n, int h, int a, int d)
-        : name(n), health(h), attack(a), defense(d) {
-        std::cout << "Monster " << name << " created!\n";
+    q.enqueue("Orange");
+    q.enqueue("Pear");
+    q.show();
+
+    try {
+        std::cout << "Removed: " << q.dequeue() << "\n";
+        std::cout << "Removed: " << q.dequeue() << "\n";
+        q.show();
+
+        // This will throw
+        std::cout << "Removed: " << q.dequeue() << "\n";
     }
-
-    // Деструктор
-    ~Monster() {
-        std::cout << "Monster " << name << " destroyed!\n";
+    catch (const std::exception& ex) {
+        std::cerr << "[String Queue Error] " << ex.what() << "\n";
     }
+}
 
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", HP: " << health
-            << ", Attack: " << attack << ", Defense: " << defense << std::endl;
+void testIntQueue() {
+    MyQueue<int> q;
+
+    q.enqueue(42);
+    q.show();
+
+    try {
+        std::cout << "Removed: " << q.dequeue() << "\n";
+        q.show();
+
+        // This will also throw
+        std::cout << "Removed: " << q.dequeue() << "\n";
     }
-};
-
-class Weapon {
-private:
-    std::string name;
-    int damage;
-    int weight;
-
-public:
-    // Конструктор
-    Weapon(const std::string& n, int d, int w)
-        : name(n), damage(d), weight(w) {
-        std::cout << "Weapon " << name << " created!\n";
+    catch (const std::exception& ex) {
+        std::cerr << "[Int Queue Error] " << ex.what() << "\n";
     }
-
-    // Деструктор
-    ~Weapon() {
-        std::cout << "Weapon " << name << " destroyed!\n";
-    }
-
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", Damage: " << damage
-            << ", Weight: " << weight << std::endl;
-    }
-};
+}
 
 int main() {
-    Weapon sword("Sword", 50, 5);
-    Weapon bow("Bow", 30, 3);
-    Weapon axe("Axe", 60, 8);
-
-    sword.displayInfo();
-    bow.displayInfo();
-    axe.displayInfo();
+    testStringQueue();
+    std::cout << "\n";
+    testIntQueue();
 
     return 0;
 }
+

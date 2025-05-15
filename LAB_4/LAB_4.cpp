@@ -1,90 +1,65 @@
-﻿//LAB - 2
+﻿//LAB - 4
 
 #include <iostream>
+#include <memory>
 #include <string>
+#include <utility>
 
-class Character {
+// Класс для управления списком предметов
+class Bag {
 private:
-    std::string name;
-    int health;
-    int attack;
-    int defense;
+    // динамический массив предметов
+    std::unique_ptr<std::string[]> _slots;  
+    // текущая вместимость
+    size_t _limit;                          
+    // количество добавленных предметов
+    size_t _count;                          
+
+    // Увеличение размера массива, если не хватает места
+    void expand() {
+        size_t newLimit = (_limit == 0) ? 2 : _limit * 2;
+        auto temp = std::make_unique<std::string[]>(newLimit);
+
+        for (size_t i = 0; i < _count; ++i) {
+            temp[i] = std::move(_slots[i]);
+        }
+
+        _slots = std::move(temp);
+        _limit = newLimit;
+    }
 
 public:
-    // Конструктор
-    Character(const std::string& n, int h, int a, int d)
-        : name(n), health(h), attack(a), defense(d) {
-        std::cout << "Character " << name << " created!\n";
+    Bag() : _slots(nullptr), _limit(0), _count(0) {}
+
+    // Добавление нового предмета
+    void insert(const std::string& thing) {
+        if (_count >= _limit) {
+            expand();
+        }
+        _slots[_count++] = thing;
     }
 
-    // Деструктор
-    ~Character() {
-        std::cout << "Character " << name << " destroyed!\n";
-    }
-
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", HP: " << health
-            << ", Attack: " << attack << ", Defense: " << defense << std::endl;
-    }
-};
-
-class Monster {
-private:
-    std::string name;
-    int health;
-    int attack;
-    int defense;
-
-public:
-    // Конструктор
-    Monster(const std::string& n, int h, int a, int d)
-        : name(n), health(h), attack(a), defense(d) {
-        std::cout << "Monster " << name << " created!\n";
-    }
-
-    // Деструктор
-    ~Monster() {
-        std::cout << "Monster " << name << " destroyed!\n";
-    }
-
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", HP: " << health
-            << ", Attack: " << attack << ", Defense: " << defense << std::endl;
-    }
-};
-
-class Weapon {
-private:
-    std::string name;
-    int damage;
-    int weight;
-
-public:
-    // Конструктор
-    Weapon(const std::string& n, int d, int w)
-        : name(n), damage(d), weight(w) {
-        std::cout << "Weapon " << name << " created!\n";
-    }
-
-    // Деструктор
-    ~Weapon() {
-        std::cout << "Weapon " << name << " destroyed!\n";
-    }
-
-    void displayInfo() const {
-        std::cout << "Name: " << name << ", Damage: " << damage
-            << ", Weight: " << weight << std::endl;
+    // Отображение содержимого инвентаря
+    void printContents() const {
+        std::cout << "Bag Contents [" << _count << "/" << _limit << "]\n";
+        for (size_t i = 0; i < _count; ++i) {
+            std::cout << " * " << _slots[i] << '\n';
+        }
     }
 };
 
 int main() {
-    Weapon sword("Sword", 50, 5);
-    Weapon bow("Bow", 30, 3);
-    Weapon axe("Axe", 60, 8);
+    Bag playerBag;
 
-    sword.displayInfo();
-    bow.displayInfo();
-    axe.displayInfo();
+    playerBag.insert("Iron Sword");
+    playerBag.insert("Healing Potion");
+    playerBag.insert("Wooden Shield");
+    playerBag.insert("Elixir of Mana");
+
+    playerBag.printContents();
 
     return 0;
 }
+
+
+
